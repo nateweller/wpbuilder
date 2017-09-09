@@ -1,0 +1,56 @@
+#!/bin/bash
+clear
+
+# Config
+dir="/Applications/MAMP/htdocs"
+url="http://localhost:8888"
+db_user="root"
+db_password="root"
+wp_user=""
+wp_password=''
+wp_email=""
+browser_path="/Applications/Google Chrome.app"
+acf_license="" 
+
+# Ok! Let's go!
+cd "$dir"
+
+# Get Site Title and Slug
+echo "Ok! Let's build some WordPress."
+echo -n "Site Title: "
+read site_title
+echo -n "Slug: "
+read slug
+
+# Download WP Core into new directory
+wp core download --path=$slug
+cd $slug
+
+# Create wp-config.php
+wp config create --dbname=$slug --dbuser=$db_user --dbpass=$db_password
+
+# Create database
+wp db create
+
+# Install WP
+wp core install --url="${url}/${slug}" --title="${site_title}" --admin_user="${wp_user}" --admin_password=${wp_password} --admin_email=${wp_email} --skip-email
+
+### Plugins
+# Advanced Custom Fields Pro
+acf_zip_file="$dir/$slug/wp-content/plugins/acf-pro.zip"
+curl -o ${acf_zip_file} "http://connect.advancedcustomfields.com/index.php?p=pro&a=download&k=$acf_license"
+wp plugin install ${acf_zip_file} --activate
+rm ${acf_zip_file}
+# Custom Post Type UI
+wp plugin install custom-post-type-ui --activate
+# Better WP Security
+wp plugin install better-wp-security --activate
+# Timber
+wp plugin install timber-library --activate
+
+wp plugin delete hello
+wp plugin update --all
+
+# Launch!
+echo "All Done! Launching your shiny new WordPress install..."
+/usr/bin/open -a ${browser_path} "$url/$slug"
