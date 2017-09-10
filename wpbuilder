@@ -33,14 +33,14 @@ wp config create --dbname=$slug --dbuser=$db_user --dbpass=$db_password
 wp db create
 
 # Install WP
-wp core install --url="${url}/${slug}" --title="${site_title}" --admin_user="${wp_user}" --admin_password=${wp_password} --admin_email=${wp_email} --skip-email
+wp core install --url="$url/$slug" --title="$site_title" --admin_user="$wp_user" --admin_password=$wp_password --admin_email=$wp_email --skip-email
 
 ### Plugins
 # Advanced Custom Fields Pro
 acf_zip_file="$dir/$slug/wp-content/plugins/acf-pro.zip"
-curl -o ${acf_zip_file} "http://connect.advancedcustomfields.com/index.php?p=pro&a=download&k=$acf_license"
-wp plugin install ${acf_zip_file} --activate
-rm ${acf_zip_file}
+curl -o "$acf_zip_file" "http://connect.advancedcustomfields.com/index.php?p=pro&a=download&k=$acf_license"
+wp plugin install "$acf_zip_file" --activate
+rm "$acf_zip_file"
 # Custom Post Type UI
 wp plugin install custom-post-type-ui --activate
 # Better WP Security
@@ -53,4 +53,4 @@ wp plugin update --all
 
 # Launch!
 echo "All Done! Launching your shiny new WordPress install..."
-/usr/bin/open -a ${browser_path} "$url/$slug"
+/usr/bin/open -a "$browser_path" "$url/$slug"
