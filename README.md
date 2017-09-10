@@ -1,31 +1,33 @@
 # wpbuilder
-CLI executable for automated custom WordPress installation for macOS.
+CLI executable for automated custom WordPress installs on macOS.
 
 ## Requirements
+#### wp-cli
 `wpbuilder` requires `wp-cli`:
 ```
 $ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 $ chmod +x wp-cli.phar
 $ sudo mv wp-cli.phar /usr/local/bin/wp
 ```
-
-## Installation
-1. Download `wpbuilder` and move the file to `~/bin`. You may need to create this directory.
-2. Add the following to the bottom of your `.bash_profile` to include:
+#### .bash_profile PATH
+If you do not have a place on your machine for this kind of thing:
+```
+mkdir '~/bin'
+```
+and add the following to the bottom of your `.bash_profile` to include:
 ```
 $ export PATH=$PATH:~/bin
 ```
-3. Give `wpbuilder` executable permissions:
+## Installation
+1. Download `wpbuilder` and move the file to `~/bin`.
+2. Give `wpbuilder` executable permissions:
 ```
 $ chmod +x ~/bin/wpbuilder
 ```
-4. Edit the Config section of `wpbuilder` (lines 4-13) with your info.
-5. Restart your CLI and run `wpbuilder` to get started!
+3. Edit the Config section of `wpbuilder` (lines 4-13) with your info.
+4. Restart your CLI and run `wpbuilder` to get started!
 
-## What the heck is this thing
-`wpbuilder` is a command line tool for automating local WordPress installs, from downloading the latest version to initializing a database and installing some pre-set plugins.
-
-#### Plugins
+## What's in the Box
 * Advanced Custom Fields Pro
 * Better WP Security
 * Custom Post Type UI
